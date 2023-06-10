@@ -10,15 +10,17 @@ import BoardListScreen from './BoardListScreen';
 import CreateBoardScreen from './CreateBoardScreen';
 import AlarmScreen from './AlarmScreen';
 import MyProfileScreen from './MyProfileScreen';
-import {Button} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useCapsuleBuilderStore} from 'stores/CapsuleBuilderStore';
+import {useBoardStore} from 'stores/BoardStore';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
 function MainTab() {
   const navigation = useNavigation<MainTabNavigationProp>();
   const {clear} = useCapsuleBuilderStore();
+
+  const {searchBoard} = useBoardStore();
 
   return (
     <Tab.Navigator
@@ -42,7 +44,7 @@ function MainTab() {
         name="BoardList"
         component={BoardListScreen}
         options={{
-          title: '게시판',
+          title: `${searchBoard.year}년대 ${searchBoard.subject}게시판`,
           tabBarIcon: ({color, size}) => (
             <MaterialIcons name="link" color={color} size={size} />
           ),

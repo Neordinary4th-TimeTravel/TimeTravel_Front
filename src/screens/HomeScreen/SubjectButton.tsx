@@ -1,6 +1,10 @@
 import React from 'react';
 import {styled} from 'styled-components/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {TouchableNativeFeedback} from 'react-native';
+import {useBoardStore} from 'stores/BoardStore';
+import {useNavigation} from '@react-navigation/native';
+import {MainTabNavigationProp} from 'screens/types';
 
 interface SubjectButtonProps {
   key: number;
@@ -9,11 +13,21 @@ interface SubjectButtonProps {
 }
 
 function SubjectButton({key, iconName, subjectName}: SubjectButtonProps) {
+  const {updateSearchBoard} = useBoardStore();
+  const navigation = useNavigation<MainTabNavigationProp>();
+
+  const onPress = () => {
+    updateSearchBoard({subject: subjectName});
+    navigation.navigate('BoardList');
+  };
+
   return (
-    <StyledView key={key}>
-      <MaterialIcons name={iconName} color="black" size={24} />
-      <SubjectName>{subjectName}</SubjectName>
-    </StyledView>
+    <TouchableNativeFeedback onPress={onPress}>
+      <StyledView key={key}>
+        <MaterialIcons name={iconName} color="black" size={24} />
+        <SubjectName>{subjectName}</SubjectName>
+      </StyledView>
+    </TouchableNativeFeedback>
   );
 }
 

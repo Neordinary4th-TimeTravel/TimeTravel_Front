@@ -2,22 +2,23 @@ import React, {useState} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {styled} from 'styled-components/native';
 import {BottomSheet, ListItem} from '@rneui/base';
+import {useBoardStore} from 'stores/BoardStore';
 
 interface HomeHeaderProps {
   userName: string;
-  defaultYear: string;
   list: Array<string>;
 }
 
-function HomeHeader({userName, defaultYear, list}: HomeHeaderProps) {
+function HomeHeader({userName, list}: HomeHeaderProps) {
+  const {searchBoard, updateSearchBoard} = useBoardStore();
+
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [item, setItem] = useState('');
 
   const itemList = list.map(item => {
     return {
       title: item + '년대',
       onPress: () => {
-        setItem(item);
+        updateSearchBoard({year: item});
         setIsVisible(false);
       },
     };
@@ -39,15 +40,22 @@ function HomeHeader({userName, defaultYear, list}: HomeHeaderProps) {
       </StyledView>
       <YearView onPress={() => setIsVisible(true)}>
         <YeaeTitleView>
-          <YearTitleBold>
-            {item ? `${item}년대` : `${defaultYear}년대`}
-          </YearTitleBold>
+          <YearTitleBold>{`${searchBoard.year}년대`}</YearTitleBold>
           <YearTitle>그때로</YearTitle>
         </YeaeTitleView>
         <MaterialIcons name="arrow-drop-down" color="black" size={24} />
         <BottomSheet modalProps={{}} isVisible={isVisible}>
           {itemList.map((item, index) => (
-            <ListItem key={index} onPress={item.onPress}>
+            <ListItem
+              key={index}
+              onPress={item.onPress}
+              containerStyle={
+                index === 0
+                  ? {borderTopLeftRadius: 24, borderTopRightRadius: 24}
+                  : index === itemList.length - 1
+                  ? {paddingBottom: 30}
+                  : {}
+              }>
               <ListItem.Content>
                 <ListItem.Title>{item.title}</ListItem.Title>
               </ListItem.Content>
@@ -75,7 +83,7 @@ const StyledView = styled.View`
   justify-content: space-between;
   align-items: flex-start;
   background-color: #282828;
-  border-radius: 0px 0px 20px 0px;
+  border-radius: 0px 0px 20px 20px;
   position: relative;
   padding-top: 31;
 `;

@@ -13,18 +13,17 @@ export default function () {
       <ScrollView>
         <HomeHeader
           userName="soft"
-          defaultYear="2010"
           list={['1980', '1990', '2000', '2010', '2020']}
         />
         <HomeSubjectFilter
           subjects={[
-            {iconName: 'headphones', subjectName: '편지'},
-            {iconName: 'headphones', subjectName: '음악'},
-            {iconName: 'styler', subjectName: '패션'},
-            {iconName: 'movie_info', subjectName: '영화'},
-            {iconName: 'send', subjectName: '드라마'},
-            {iconName: 'send', subjectName: '만화'},
-            {iconName: 'send', subjectName: '예능'},
+            {iconName: 'mail-outline', subjectName: '편지'},
+            {iconName: 'music-note', subjectName: '음악'},
+            {iconName: 'checkroom', subjectName: '패션'},
+            {iconName: 'movie', subjectName: '영화'},
+            {iconName: 'live-tv', subjectName: '드라마'},
+            {iconName: 'manga', subjectName: '만화'},
+            {iconName: 'attractions', subjectName: '예능'},
           ]}
         />
         <HomeDate lockDate="2023-05-27" createDate="2023-05-12" />

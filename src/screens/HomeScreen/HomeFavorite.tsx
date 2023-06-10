@@ -21,8 +21,9 @@ function HomeFavortie({boards}: HomeFavortieProps) {
         <MaterialIcons name="arrow-forward-ios" color="black" size={16} />
       </TitleView>
       <BoardView>
-        {boards.map(item => (
+        {boards.map((item, index) => (
           <FavoriteItem
+            key={index}
             boardName={item.boardName}
             boardTitle={item.boardTitle}
             newBoard={item.newBoard}

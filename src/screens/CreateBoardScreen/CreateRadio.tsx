@@ -29,10 +29,10 @@ function CreateRadio({list}: CreateRadioProps) {
     <View style={styles.row}>
       {list.map((item, index) => (
         <TouchableWithoutFeedback
+          key={index}
           style={styles.full}
           onPress={() => onPress(index)}>
           <View
-            key={index}
             style={[styles.full, index === selectedIndex && styles.selected]}>
             <Text style={{fontSize: 14}}>{item}</Text>
           </View>
