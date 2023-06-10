@@ -5,6 +5,7 @@ import CreateInput from './CreateInput';
 import CreateInputKeyword from './CreateInputKeyword';
 import CreateMultipleInput from './CreateMultipleInput';
 import CreateRadio from './CreateRadio';
+import CreateDatePicker from './CreateDatePicker';
 
 export default function () {
   return (
@@ -31,7 +32,7 @@ export default function () {
       <Text>공개 여부 *</Text>
       <CreateRadio list={['공개', '비공개']} />
       <Text>캡슐 해제 시간 *</Text>
-      {/* TODO */}
+      <CreateDatePicker title="해제 시간을 설정해주세요!" />
     </>
   );
 }
