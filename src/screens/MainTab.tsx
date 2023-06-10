@@ -41,37 +41,14 @@ function MainTab() {
       />
 
       <Tab.Screen
-        name="BoardList"
-        component={BoardListScreen}
+        name="CapsuleList"
+        component={AlarmScreen}
         options={{
           title: `${searchBoard.year}년대 ${searchBoard.subject}게시판`,
           tabBarIcon: ({color, size}) => (
             <MaterialIcons name="link" color={color} size={size} />
           ),
-          tabBarStyle: {
-            display: 'none',
-          },
-          headerLeft: () => (
-            <MaterialIcons
-              name="arrow-back-ios"
-              color="white"
-              style={{paddingLeft: 20}}
-              size={20}
-              onPress={() => {
-                navigation.navigate('Home');
-                clear();
-              }}
-            />
-          ),
-          headerStyle: {
-            backgroundColor: '#282828',
-            borderBottomLeftRadius: 20,
-            borderBottomRightRadius: 20,
-          },
-          headerTintColor: 'white',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+          headerShown: false,
         }}
       />
       <Tab.Screen

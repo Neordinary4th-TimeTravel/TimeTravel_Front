@@ -9,7 +9,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 /* MainTab */
 export type MainTabParamList = {
   Home: undefined;
-  BoardList: undefined;
+  CapsuleList: undefined;
   CreateBoard: undefined;
   Alarm: undefined;
   MyProfile: undefined;
@@ -26,6 +26,7 @@ export type MainTabRouteProp = RouteProp<RootStackParamList, 'MainTab'>;
 /* RootStack */
 export type RootStackParamList = {
   MainTab: MainTabNavigationScreenParams;
+  BoardList: undefined;
   BoardDetail: {
     id: number;
   };
