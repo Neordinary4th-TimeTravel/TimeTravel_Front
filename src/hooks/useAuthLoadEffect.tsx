@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import {useEffect} from 'react';
 import {applyToken} from '../api/client';
@@ -8,13 +9,13 @@ import {RootStackNavigationProp} from 'screens/types';
 
 export default function useAuthLoadEffect() {
   const [, setUser] = useUserState();
-  const navigation = useNavigation<RootStackNavigationProp>();
+  // const navigation = useNavigation<RootStackNavigationProp>();
 
   useEffect(() => {
     const fn = async () => {
       const auth = await authStorage.get();
       if (!auth) {
-        navigation.navigate('Login');
+        // navigation.navigate('MainTab');
         return;
       }
       setUser(auth.user);

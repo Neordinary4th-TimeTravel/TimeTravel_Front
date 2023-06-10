@@ -1,11 +1,16 @@
 import React from 'react';
-import {Text} from 'react-native';
+
 import {styled} from 'styled-components/native';
+import HomeHeader from './HomeHeader';
 
 export default function () {
   return (
     <StyledView>
-      <Text>Home</Text>
+      <HomeHeader
+        userName="soft"
+        defaultYear="2010"
+        list={['1980', '1990', '2000']}
+      />
     </StyledView>
   );
 }
