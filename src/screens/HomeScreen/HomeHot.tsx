@@ -1,5 +1,7 @@
 import React from 'react';
+import {ScrollView, StyleSheet} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import BoardList from 'screens/BoardListScreen/BoardList';
 // import FavoriteItem from './FavoriteItem';
 import {styled} from 'styled-components/native';
 
@@ -31,6 +33,18 @@ function HomeHot() {
           />
         ))}
       </BoardView> */}
+      <ScrollView style={styles.scroll}>
+        <BoardList
+          subject="음악"
+          title="2010, 서울에서 열리는"
+          description="국에서 처음으로 열리는"
+        />
+        <BoardList
+          subject="음악"
+          title="2010, 서울에서 열리는 어쩌고"
+          description="국에서 처음으로 열리는 어쩌고 저쩌고"
+        />
+      </ScrollView>
     </ContainerView>
   );
 }
@@ -53,7 +67,8 @@ const TitleView = styled.View`
   justify-content: space-between;
   align-items: center;
 
-  margin-top: 26;
+  margin-top: 14;
+  margin-bottom: 14;
 `;
 
 const Title = styled.Text`
@@ -63,3 +78,11 @@ const Title = styled.Text`
   line-height: 19;
   color: #3c3c3c;
 `;
+
+const styles = StyleSheet.create({
+  scroll: {
+    flex: 1,
+    gap: 4,
+    width: '100%',
+  },
+});
