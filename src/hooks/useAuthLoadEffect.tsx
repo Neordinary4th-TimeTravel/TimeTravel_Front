@@ -9,13 +9,13 @@ import {RootStackNavigationProp} from 'screens/types';
 
 export default function useAuthLoadEffect() {
   const [, setUser] = useUserState();
-  // const navigation = useNavigation<RootStackNavigationProp>();
+  const navigation = useNavigation<RootStackNavigationProp>();
 
   useEffect(() => {
     const fn = async () => {
       const auth = await authStorage.get();
       if (!auth) {
-        // navigation.navigate('MainTab');
+        navigation.navigate('Login');
         return;
       }
       setUser(auth.user);
