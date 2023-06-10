@@ -1,6 +1,8 @@
 // import client from './client';
 // import {AuthResult, User} from './types';
 
+import client from './client';
+
 // export async function register(params: RegisterParams) {
 //   const response = await client.post<AuthResult>(
 //     '/auth/local/register',
@@ -29,3 +31,8 @@
 //   identifier: string;
 //   password: string;
 // }
+
+export async function getHello() {
+  const response = await client.get('/');
+  return response.data;
+}
