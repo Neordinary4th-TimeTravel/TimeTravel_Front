@@ -27,7 +27,7 @@ export default function () {
             {iconName: 'send', subjectName: '예능'},
           ]}
         />
-        <HomeDate lockDate="2023-05-27" createDate="2023-05-12" />
+        <HomeDate lockDate="2023-06-27" createDate="2023-05-12" />
         <HomeFavortie
           boards={[
             {
