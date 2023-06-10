@@ -24,7 +24,7 @@ function MainTab() {
           ),
         }}
       />
-      <Tab.Screen
+       <Tab.Screen
         name="UserMenu"
         component={UserMenuScreen}
         options={{
