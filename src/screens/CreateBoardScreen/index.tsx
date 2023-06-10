@@ -2,6 +2,8 @@ import React from 'react';
 import CreateSelector from './CreateSelector';
 import {Text} from 'react-native';
 import CreateInput from './CreateInput';
+import CreateInputKeyword from './CreateInputKeyword';
+import CreateMultipleInput from './CreateMultipleInput';
 
 export default function () {
   return (
@@ -17,9 +19,9 @@ export default function () {
         list={['음악', '패션', '패션', '패션', '패션']}
       />
       <Text>글쓰기 *</Text>
-      <CreateInput title="제목: " />
-      {/* TODO */}
-      {/* TODO */}
+      <CreateInput title="제목 : " />
+      <CreateInputKeyword title="원하시는 키워드를 입력하면 대신 써드려요!" />
+      <CreateMultipleInput title="본문 : " />
       <Text>노래 추가</Text>
       <CreateInput title="요즘 듣고 있는 노래를 입력해주세요!" />
       <Text>친구 태그하기</Text>
