@@ -72,7 +72,6 @@ export default CreateDatePicker;
 const styles = StyleSheet.create({
   time: {
     backgroundColor: 'white',
-    full: 1,
     flex: 1,
     paddingVertical: 10,
     paddingHorizontal: 10,

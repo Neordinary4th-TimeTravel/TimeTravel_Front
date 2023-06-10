@@ -1,16 +1,19 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {RootStackParamList} from './types';
+import {MainTabNavigationProp, RootStackParamList} from './types';
 import MainTab from './MainTab';
 import RegisterScreen from 'screens/Login/RegisterScreen';
 import LoginScreen from 'screens/Login/LoginScreen';
 import BoardDetail from './BoardDetailScreen';
 import useAuthLoadEffect from 'hooks/useAuthLoadEffect';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {useNavigation} from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootStack() {
   useAuthLoadEffect();
+  const navigation = useNavigation<MainTabNavigationProp>();
 
   return (
     <Stack.Navigator screenOptions={{headerBackTitle: '닫기'}}>
@@ -21,7 +24,26 @@ function RootStack() {
       />
       <Stack.Screen
         name="BoardDetail"
-        options={{title: '게시글'}}
+        options={{
+          title: '게시글',
+          headerStyle: {
+            backgroundColor: '#282828',
+          },
+          headerTitleStyle: {
+            color: 'white',
+          },
+          headerLeft: () => (
+            <MaterialIcons
+              name="arrow-back-ios"
+              color="white"
+              style={{paddingLeft: 20}}
+              size={20}
+              onPress={() => {
+                navigation.navigate('BoardList');
+              }}
+            />
+          ),
+        }}
         component={BoardDetail}
       />
       <Stack.Screen

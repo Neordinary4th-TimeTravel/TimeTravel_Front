@@ -42,10 +42,34 @@ function MainTab() {
         name="BoardList"
         component={BoardListScreen}
         options={{
-          title: '캡슐 목록',
+          title: '게시판',
           tabBarIcon: ({color, size}) => (
             <MaterialIcons name="link" color={color} size={size} />
           ),
+          tabBarStyle: {
+            display: 'none',
+          },
+          headerLeft: () => (
+            <MaterialIcons
+              name="arrow-back-ios"
+              color="white"
+              style={{paddingLeft: 20}}
+              size={20}
+              onPress={() => {
+                navigation.navigate('Home');
+                clear();
+              }}
+            />
+          ),
+          headerStyle: {
+            backgroundColor: '#282828',
+            borderBottomLeftRadius: 20,
+            borderBottomRightRadius: 20,
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
         }}
       />
       <Tab.Screen

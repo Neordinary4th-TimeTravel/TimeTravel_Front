@@ -225,7 +225,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   highLight: {
-    full: 1,
     justifyContent: 'center',
     backgroundColor: '#FF8C83',
     marginHorizontal: 30,
