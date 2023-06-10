@@ -1,38 +1,216 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useEffect, useState} from 'react';
 import CreateSelector from './CreateSelector';
-import {Text} from 'react-native';
-import CreateInput from './CreateInput';
-import CreateInputKeyword from './CreateInputKeyword';
-import CreateMultipleInput from './CreateMultipleInput';
 import CreateRadio from './CreateRadio';
 import CreateDatePicker from './CreateDatePicker';
+import {useCapsuleBuilderStore} from 'stores/CapsuleBuilderStore';
+import {styled} from 'styled-components/native';
+import Title from './Title';
+import {StyleSheet, TextInput, View, Button, Alert} from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {MainTabNavigationProp} from 'screens/types';
+import {useNavigation} from '@react-navigation/native';
 
 export default function () {
-  return (
-    <>
-      <Text>년도 선택 *</Text>
-      <CreateSelector
-        title="어떤 년도와 관련된 캡슐인가요?"
-        list={['1980', '1990', '2000']}
-      />
-      <Text>주제 선택 *</Text>
-      <CreateSelector
-        title="어떤 내용으로 만드시나요?"
-        list={['음악', '패션', '패션', '패션', '패션']}
-      />
-      <Text>글쓰기 *</Text>
-      <CreateInput title="제목 : " />
-      <CreateInputKeyword title="원하시는 키워드를 입력하면 대신 써드려요!" />
-      <CreateMultipleInput title="본문 : " />
-      <Text>노래 추가</Text>
-      <CreateInput title="요즘 듣고 있는 노래를 입력해주세요!" />
-      <Text>친구 태그하기</Text>
-      <CreateInput title="요즘 듣고 있는 노래를 입력해주세요!" />
+  const {capsule, updateCapsule, clear} = useCapsuleBuilderStore();
 
-      <Text>공개 여부 *</Text>
-      <CreateRadio list={['공개', '비공개']} />
-      <Text>캡슐 해제 시간 *</Text>
-      <CreateDatePicker title="해제 시간을 설정해주세요!" />
-    </>
+  const navigation = useNavigation<MainTabNavigationProp>();
+
+  const {
+    year,
+    subject,
+    content,
+    openTime,
+    title,
+    keywords,
+    contentType,
+    song,
+    friends,
+  } = capsule;
+
+  // const [capsuleTitle, setCapsuleTitle] = useState<string | null>(null);
+  const [contents, setContents] = useState<string | null>(null);
+
+  const [isPossible, setIsPossible] = useState<boolean>(false);
+
+  const onPressGpt = () => {
+    Alert.alert('hello');
+  };
+
+  const onPressFinal = () => {
+    if (isPossible) {
+      Alert.alert('success');
+      console.log(capsule);
+      clear();
+      navigation.navigate('Home');
+    } else {
+      Alert.alert('필수 정보를 다 입력해주세요!');
+    }
+  };
+
+  useEffect(() => {
+    setIsPossible(!!year && !!subject && !!title && !!content && !!openTime);
+  }, [capsule]);
+
+  return (
+    <StyledSafeArea>
+      <StyledView contentContainerStyle={styles.flexG}>
+        <Title title="년도 선택 *" />
+        <CreateSelector
+          title="어떤 년도와 관련된 캡슐인가요?"
+          list={['1980', '1990', '2000']}
+          type="YEAR"
+        />
+
+        <Title title="주제 선택 *" />
+        <CreateSelector
+          title="어떤 내용으로 만드시나요?"
+          list={['음악', '패션', '패션', '패션', '패션']}
+          type="SUBJECT"
+        />
+
+        <Title title="글쓰기 *" />
+        <TextInput
+          placeholder="제목: "
+          value={title ?? ''}
+          onChangeText={v => {
+            updateCapsule({
+              title: v,
+            });
+          }}
+          style={[styles.textInputStyle]}
+        />
+
+        <View style={styles.spacing} />
+
+        <View style={styles.row}>
+          <View style={styles.full}>
+            <TextInput
+              placeholder="키워드: ex) 짱구 극장판 3기"
+              value={keywords ?? ''}
+              onChangeText={v => {
+                updateCapsule({
+                  keywords: v,
+                });
+              }}
+              style={styles.textInputStyle}
+            />
+            <TextInput
+              placeholder="글 형식: ex) 블로그 형식"
+              value={contentType ?? ''}
+              onChangeText={v => {
+                updateCapsule({
+                  contentType: v,
+                });
+              }}
+              style={styles.textInputStyle}
+            />
+          </View>
+          <MaterialIcons
+            name="send"
+            color="black"
+            size={24}
+            onPress={onPressGpt}
+          />
+        </View>
+
+        <View style={styles.spacing} />
+
+        <TextInput
+          placeholder="본문: "
+          multiline
+          numberOfLines={5}
+          value={contents ?? ''}
+          onChangeText={v => {
+            setContents(v);
+            updateCapsule({
+              content: v,
+            });
+          }}
+          style={[styles.textInputStyle, styles.multiple]}
+        />
+
+        <Title title="노래 추가" />
+        <TextInput
+          placeholder="캡슐과 어울리는 노래를 입력해주세요!"
+          value={song ?? ''}
+          onChangeText={v => {
+            updateCapsule({
+              song: v,
+            });
+          }}
+          style={styles.textInputStyle}
+        />
+
+        <Title title="친구 태그하기" />
+        <TextInput
+          placeholder="요즘 듣고 있는 노래를 입력해주세요!"
+          value={friends ?? ''}
+          onChangeText={v => {
+            updateCapsule({
+              friends: v,
+            });
+          }}
+          style={styles.textInputStyle}
+        />
+
+        <Title title="공개 여부 *" />
+        <CreateRadio list={['공개', '비공개']} />
+
+        <Title title="캡슐 해제 시간 *" />
+        <CreateDatePicker title="해제 시간을 설정해주세요!" />
+
+        <View style={styles.spacing} />
+        <View style={styles.spacing} />
+        <View style={styles.spacing} />
+      </StyledView>
+      <View style={styles.spacing} />
+
+      <Button title="캡슐 만들기" onPress={onPressFinal} />
+    </StyledSafeArea>
   );
 }
+
+const StyledSafeArea = styled.SafeAreaView`
+  flex: 1;
+`;
+
+const StyledView = styled.ScrollView`
+  flex: 1;
+  background-color: white;
+  padding-top: 24;
+  padding-left: 24;
+  padding-right: 24;
+  padding-bottom: 100;
+`;
+
+const styles = StyleSheet.create({
+  flexG: {
+    flexGrow: 1,
+  },
+  textInputStyle: {
+    backgroundColor: '#EFEFEF',
+    borderRadius: 7,
+    overflow: 'hidden',
+    borderColor: 'transparent',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    marginBottom: 8,
+    color: '#7D7D7D',
+  },
+  row: {
+    flexDirection: 'row',
+    gap: 10,
+    alignItems: 'center',
+  },
+  multiple: {
+    height: 100,
+    paddingTop: 10,
+  },
+  spacing: {
+    height: 10,
+  },
+  full: {
+    flex: 1,
+  },
+});

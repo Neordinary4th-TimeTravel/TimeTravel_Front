@@ -1,6 +1,7 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {MainTabParamList} from './types';
+import {MainTabNavigationProp, MainTabParamList} from './types';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import HomeScreen from './HomeScreen';
@@ -8,10 +9,16 @@ import BoardListScreen from './BoardListScreen';
 import CreateBoardScreen from './CreateBoardScreen';
 import AlarmScreen from './AlarmScreen';
 import MyProfileScreen from './MyProfileScreen';
+import {Button} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {useCapsuleBuilderStore} from 'stores/CapsuleBuilderStore';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
 function MainTab() {
+  const navigation = useNavigation<MainTabNavigationProp>();
+  const {clear} = useCapsuleBuilderStore();
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -42,10 +49,20 @@ function MainTab() {
         name="CreateBoard"
         component={CreateBoardScreen}
         options={{
-          title: '+',
+          title: '캡슐 만들기',
           tabBarIcon: ({color, size}) => (
             <MaterialIcons name="person" color={color} size={size} />
           ),
+          headerLeft: () => (
+            <Button
+              title="< back"
+              onPress={() => {
+                navigation.navigate('Home');
+                clear();
+              }}
+            />
+          ),
+          tabBarStyle: {display: 'none'},
         }}
       />
       <Tab.Screen

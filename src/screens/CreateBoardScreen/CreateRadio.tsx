@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useState} from 'react';
-import {Button} from '@rneui/base';
-import {Stack} from '@rneui/layout';
-import {Text} from 'react-native';
+import {Button} from 'react-native';
+import {View} from 'react-native';
+import {StyleSheet} from 'react-native';
+import {useCapsuleBuilderStore} from 'stores/CapsuleBuilderStore';
 
 interface CreateRadioProps {
   list: Array<string>;
@@ -9,19 +11,42 @@ interface CreateRadioProps {
 
 function CreateRadio({list}: CreateRadioProps) {
   const [selectedIndex, setIndex] = useState<number>(0);
+  const {updateCapsule} = useCapsuleBuilderStore();
+
+  const onPress = (index: number) => {
+    setIndex(index);
+    updateCapsule({
+      isPrivate: !!index,
+    });
+  };
 
   return (
-    <>
-      <Stack row align="center" spacing={4}>
-        {list.map((item, index) => (
-          <Button key={index} title={item} onPress={() => setIndex(index)} />
-        ))}
-      </Stack>
-      <Text>{selectedIndex}</Text>
-    </>
+    <View style={styles.row}>
+      {list.map((item, index) => (
+        <View
+          key={index}
+          style={[styles.full, index == selectedIndex && styles.selected]}>
+          <Button title={item} onPress={() => onPress(index)} />
+        </View>
+      ))}
+    </View>
   );
 }
 
 export default CreateRadio;
 
-// const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    gap: 10,
+    alignItems: 'center',
+    flex: 1,
+  },
+  full: {
+    flex: 1,
+    backgroundColor: '#EFEFEF',
+  },
+  selected: {
+    backgroundColor: '#9e9e9e',
+  },
+});
