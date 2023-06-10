@@ -6,7 +6,14 @@ import CreateDatePicker from './CreateDatePicker';
 import {useCapsuleBuilderStore} from 'stores/CapsuleBuilderStore';
 import {styled} from 'styled-components/native';
 import Title from './Title';
-import {StyleSheet, TextInput, View, Button, Alert} from 'react-native';
+import {
+  StyleSheet,
+  TextInput,
+  View,
+  Alert,
+  TouchableWithoutFeedback,
+  Text,
+} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {MainTabNavigationProp} from 'screens/types';
 import {useNavigation} from '@react-navigation/native';
@@ -166,7 +173,11 @@ export default function () {
       </StyledView>
       <View style={styles.spacing} />
 
-      <Button title="캡슐 만들기" onPress={onPressFinal} />
+      <TouchableWithoutFeedback style={styles.full} onPress={onPressFinal}>
+        <View style={styles.highLight}>
+          <Text style={{fontSize: 16, fontWeight: 'bold'}}>캡슐 만들기</Text>
+        </View>
+      </TouchableWithoutFeedback>
     </StyledSafeArea>
   );
 }
@@ -177,7 +188,7 @@ const StyledSafeArea = styled.SafeAreaView`
 
 const StyledView = styled.ScrollView`
   flex: 1;
-  background-color: white;
+  background-color: '#f0f0f0';
   padding-top: 24;
   padding-left: 24;
   padding-right: 24;
@@ -189,14 +200,14 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   textInputStyle: {
-    backgroundColor: '#EFEFEF',
+    backgroundColor: 'white',
     borderRadius: 7,
     overflow: 'hidden',
     borderColor: 'transparent',
     paddingHorizontal: 10,
     paddingVertical: 10,
     marginBottom: 8,
-    color: '#7D7D7D',
+    color: 'black',
   },
   row: {
     flexDirection: 'row',
@@ -212,5 +223,16 @@ const styles = StyleSheet.create({
   },
   full: {
     flex: 1,
+  },
+  highLight: {
+    full: 1,
+    justifyContent: 'center',
+    backgroundColor: '#FF8C83',
+    marginHorizontal: 30,
+    borderRadius: 7,
+    color: 'black',
+    boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.25)',
+    paddingVertical: 12,
+    alignItems: 'center',
   },
 });

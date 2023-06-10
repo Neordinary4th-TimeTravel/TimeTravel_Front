@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useState} from 'react';
-import {Button} from 'react-native';
+import {
+  Button,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import {View} from 'react-native';
 import {StyleSheet} from 'react-native';
 import {useCapsuleBuilderStore} from 'stores/CapsuleBuilderStore';
@@ -23,11 +28,15 @@ function CreateRadio({list}: CreateRadioProps) {
   return (
     <View style={styles.row}>
       {list.map((item, index) => (
-        <View
-          key={index}
-          style={[styles.full, index == selectedIndex && styles.selected]}>
-          <Button title={item} onPress={() => onPress(index)} />
-        </View>
+        <TouchableWithoutFeedback
+          style={styles.full}
+          onPress={() => onPress(index)}>
+          <View
+            key={index}
+            style={[styles.full, index === selectedIndex && styles.selected]}>
+            <Text style={{fontSize: 14}}>{item}</Text>
+          </View>
+        </TouchableWithoutFeedback>
       ))}
     </View>
   );
@@ -44,9 +53,13 @@ const styles = StyleSheet.create({
   },
   full: {
     flex: 1,
-    backgroundColor: '#EFEFEF',
+    backgroundColor: 'white',
+    borderRadius: 7,
+    color: 'white',
+    paddingVertical: 10,
+    alignItems: 'center',
   },
   selected: {
-    backgroundColor: '#9e9e9e',
+    backgroundColor: '#FFD494',
   },
 });

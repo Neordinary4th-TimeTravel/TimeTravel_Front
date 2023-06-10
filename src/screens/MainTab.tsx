@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -23,6 +24,8 @@ function MainTab() {
     <Tab.Navigator
       screenOptions={{
         tabBarShowLabel: false,
+        tabBarStyle: {backgroundColor: '#282828'},
+        tabBarActiveTintColor: '#FF8C83',
       }}>
       <Tab.Screen
         name="Home"
@@ -30,7 +33,7 @@ function MainTab() {
         options={{
           title: '홈',
           tabBarIcon: ({color, size}) => (
-            <MaterialIcons name="article" color={color} size={size} />
+            <MaterialIcons name="home" color={color} size={size} />
           ),
         }}
       />
@@ -41,7 +44,7 @@ function MainTab() {
         options={{
           title: '캡슐 목록',
           tabBarIcon: ({color, size}) => (
-            <MaterialIcons name="person" color={color} size={size} />
+            <MaterialIcons name="link" color={color} size={size} />
           ),
         }}
       />
@@ -51,18 +54,32 @@ function MainTab() {
         options={{
           title: '캡슐 만들기',
           tabBarIcon: ({color, size}) => (
-            <MaterialIcons name="person" color={color} size={size} />
+            <MaterialIcons name="add" color={color} size={size} />
           ),
+          tabBarStyle: {
+            display: 'none',
+          },
           headerLeft: () => (
-            <Button
-              title="< back"
+            <MaterialIcons
+              name="arrow-back-ios"
+              color="white"
+              style={{paddingLeft: 20}}
+              size={20}
               onPress={() => {
                 navigation.navigate('Home');
                 clear();
               }}
             />
           ),
-          tabBarStyle: {display: 'none'},
+          headerStyle: {
+            backgroundColor: '#282828',
+            borderBottomLeftRadius: 20,
+            borderBottomRightRadius: 20,
+          },
+          headerTintColor: 'white', // Set the text color of the header to white
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
         }}
       />
       <Tab.Screen
@@ -71,7 +88,7 @@ function MainTab() {
         options={{
           title: '알림',
           tabBarIcon: ({color, size}) => (
-            <MaterialIcons name="person" color={color} size={size} />
+            <MaterialIcons name="notifications" color={color} size={size} />
           ),
         }}
       />
@@ -81,7 +98,7 @@ function MainTab() {
         options={{
           title: '내 프로필',
           tabBarIcon: ({color, size}) => (
-            <MaterialIcons name="person" color={color} size={size} />
+            <MaterialIcons name="account-circle" color={color} size={size} />
           ),
         }}
       />

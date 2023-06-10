@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {BottomSheet, Button, ListItem} from '@rneui/base';
 import {useCapsuleBuilderStore} from 'stores/CapsuleBuilderStore';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 interface CreateSelectorProps {
   title: string;
@@ -39,19 +40,29 @@ function CreateSelector({title, list, type}: CreateSelectorProps) {
   return (
     <>
       <Button
-        title={type === 'YEAR' ? year || title : subject || title}
         onPress={() => setIsVisible(true)}
         buttonStyle={{
-          backgroundColor: '#EFEFEF',
+          backgroundColor: 'white',
           borderRadius: 7,
           marginBottom: 10,
         }}
         titleStyle={{
-          color: year || subject ? 'black' : '#7D7D7D',
+          color:
+            type === 'YEAR'
+              ? year
+                ? 'black'
+                : '#7D7D7D'
+              : type === 'SUBJECT'
+              ? subject
+                ? 'black'
+                : '#7D7D7D'
+              : 'black',
           fontSize: 12,
           textAlign: 'left',
-        }}
-      />
+        }}>
+        {type === 'YEAR' ? year || title : subject || title}
+        <MaterialIcons name="arrow-drop-down" size={20} />
+      </Button>
       <BottomSheet modalProps={{}} isVisible={isVisible}>
         {itemList.map((item, index) => (
           <ListItem
@@ -65,7 +76,14 @@ function CreateSelector({title, list, type}: CreateSelectorProps) {
                 : {}
             }>
             <ListItem.Content>
-              <ListItem.Title>{item.title}</ListItem.Title>
+              <ListItem.Title
+                style={{
+                  fontSize: 14,
+                  paddingHorizontal: 14,
+                  paddingVertical: 2,
+                }}>
+                {item.title}
+              </ListItem.Title>
             </ListItem.Content>
           </ListItem>
         ))}
