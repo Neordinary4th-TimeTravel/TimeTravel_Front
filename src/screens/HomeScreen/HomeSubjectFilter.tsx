@@ -2,18 +2,18 @@ import React from 'react';
 import {styled} from 'styled-components/native';
 import SubjectButton from './SubjectButton';
 
-type SubjectButtonProps = {
+interface SubjectButtonProps {
   iconName: string;
   subjectName: string;
-};
+}
 
-type HomeSubjectFilterProps = {
+interface HomeSubjectFilterProps {
   subjects: SubjectButtonProps[];
-};
+}
 
 function HomeSubjectFilter({subjects}: HomeSubjectFilterProps) {
   return (
-    <StyledScrollView horizontal={true} showsHorizontalScrollIndicator={true}>
+    <StyledScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
       {subjects.map((item, index) => (
         <SubjectButton
           key={index}
@@ -29,6 +29,6 @@ export default HomeSubjectFilter;
 
 const StyledScrollView = styled.ScrollView`
   padding-left: 24;
-  margin-top: 14;
+  margin-top: 45;
   flex: 1;
 `;

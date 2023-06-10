@@ -87,18 +87,26 @@ function HomeDate({lockDate, createDate}: HomeDateProps) {
         onRequestClose={handleCancel}>
         <ModalContent>
           <ModalView>
-            <DialogTitle>주위의 사람들을 소중히 여기길</DialogTitle>
+            <DialogUser>soft</DialogUser>
+            <DialogCreate>05/12 23:15</DialogCreate>
+            <DialogTitle>
+              3개월 뒤에 나에게 쓰는 편지. 나는 잘 하고 있어!
+            </DialogTitle>
             <DialogLine></DialogLine>
             <DialogDescription>
-              실패를 두려워하지 마세요. 실패는 성공의 열쇠입니다. 성공하기
-              위해서는 실패와 실수로부터 배우고 성장하는 것이 필수입니다.
+              실패는 성장의 기회이자 배움의 계단이니까, 어떤 일이든 괜찮아질
+              거라는 것을 믿어줘.
             </DialogDescription>
             <DialogDescription>
-              실패는 일시적인 것일 뿐이며, 그 속에는 소중한 교훈이 경험이 담겨
-              있습니다. 실패를 두려워하지 않고 도전하고 시도하는 용기를
-              가져주세요.
+              그리고 가족, 친구, 연인들과의 소중한 순간들을 놓치지 마! 함께하는
+              시간들이 너에게 큰 힘이 될거야.
             </DialogDescription>
-            <DialogDescription>{createDate}</DialogDescription>
+            <SongView>
+              <MaterialIcons name="equalizer" color="black" size={18} />
+              <DialogDescription>
+                <Bold>now playing:</Bold> 수고했어, 오늘도 - 옥상달빛
+              </DialogDescription>
+            </SongView>
             <DialogButton onPress={handleCancel}>
               <DialogButtonText>확인완료</DialogButtonText>
             </DialogButton>
@@ -114,9 +122,8 @@ export default HomeDate;
 const StyledView = styled.View`
   flex: 1;
   padding-left: 24;
-  padding-top: 24;
-  padding-bottom: 24;
   padding-right: 24;
+  margin-top: 23;
 `;
 
 const DateTitle = styled.Text`
@@ -186,7 +193,6 @@ const ModalContent = styled.View`
 const ModalView = styled.View`
   background-color: #fff;
   width: 340;
-  height: 320;
   border-radius: 15px;
   justify-content: space-between;
   align-items: flex-start;
@@ -202,11 +208,14 @@ const DialogTitle = styled.Text`
   font-size: 20;
   line-height: 24;
   color: #000000;
+  margin-top: 6;
 `;
 
 const DialogLine = styled.View`
   width: 100%;
   border: 0.6px solid #dbdbdb;
+  margin-top: 6;
+  margin-bottom: 12;
 `;
 
 const DialogDescription = styled.Text`
@@ -215,16 +224,18 @@ const DialogDescription = styled.Text`
   font-size: 14;
   line-height: 19;
   color: #000000;
+  margin-bottom: 10;
 `;
 
 const DialogButton = styled.TouchableOpacity`
   width: 100%;
   height: 47;
-  background: #efefef;
+  background: #ff8c83;
   border-radius: 10px;
   align-items: center;
   justify-content: center;
   text-align: center;
+  margin-top: 14;
 `;
 
 const DialogButtonText = styled.Text`
@@ -233,4 +244,28 @@ const DialogButtonText = styled.Text`
   font-size: 15;
   line-height: 18;
   color: #000000;
+`;
+
+const DialogUser = styled.Text`
+  font-style: normal;
+  font-weight: 600;
+  font-size: 11;
+  line-height: 13;
+  color: #afafaf;
+`;
+
+const DialogCreate = styled.Text`
+  font-style: normal;
+  font-weight: 500;
+  font-size: 9;
+  line-height: 11;
+  color: #8f8f8f;
+`;
+
+const SongView = styled.View`
+  flex-direction: row;
+`;
+
+const Bold = styled(DialogDescription)`
+  font-weight: 600;
 `;
