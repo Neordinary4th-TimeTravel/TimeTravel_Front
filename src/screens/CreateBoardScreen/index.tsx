@@ -63,6 +63,11 @@ export default function () {
   return (
     <StyledSafeArea>
       <StyledView contentContainerStyle={styles.flexG}>
+        <Title title="공개 여부 *" />
+        <CreateRadio list={['공개', '비공개']} />
+
+        <View style={styles.spacing} />
+
         <Title title="년도 선택 *" />
         <CreateSelector
           title="어떤 년도와 관련된 캡슐인가요?"
@@ -161,9 +166,6 @@ export default function () {
           }}
           style={styles.textInputStyle}
         />
-
-        <Title title="공개 여부 *" />
-        <CreateRadio list={['공개', '비공개']} />
 
         <Title title="캡슐 해제 시간 *" />
         <CreateDatePicker title="해제 시간을 설정해주세요!" />
