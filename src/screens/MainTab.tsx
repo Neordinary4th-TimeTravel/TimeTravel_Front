@@ -37,6 +37,7 @@ function MainTab() {
           tabBarIcon: ({color, size}) => (
             <MaterialIcons name="home" color={color} size={size} />
           ),
+          headerShown: false,
         }}
       />
 

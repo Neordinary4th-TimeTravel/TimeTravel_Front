@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {styled} from 'styled-components/native';
 import HomeDate from './HomeDate';
 import HomeFavortie from './HomeFavorite';
@@ -7,11 +7,15 @@ import HomeHeader from './HomeHeader';
 import HomeHot from './HomeHot';
 import HomeSubjectFilter from './HomeSubjectFilter';
 import {yearDummy} from 'constants/dummey';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export default function () {
+  const {top} = useSafeAreaInsets();
+
   return (
     <StyledView>
       <ScrollView>
+        <View style={{height: top, backgroundColor: '#282828'}} />
         <HomeHeader userName="soft" list={yearDummy} />
         <HomeSubjectFilter
           subjects={[
