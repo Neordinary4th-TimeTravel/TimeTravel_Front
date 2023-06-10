@@ -29,6 +29,7 @@ const CapsuleSight = () => {
             createDate={item.createDate}
           />
         ))}
+        
       </StyledView>
       <Line></Line>
       <OpenText>오픈완료</OpenText>

@@ -1,4 +1,34 @@
+import axios from 'axios';
 import client from './client';
+
+interface Wrapper<T> {
+  isSuccess: boolean;
+  code: number;
+  message: string;
+  result: T;
+}
+
+interface PostCapsuleResDto {
+  categoryIdx: string; // FIXME
+  memberIdx: number;
+  postTitle: string;
+  postYear: number;
+  postSong: string;
+  postRelease: string; // ISO
+  postPublic: boolean;
+}
+
+interface PostCapsuleResponseDto {
+  capsuleIdx: number;
+}
+
+export async function postCapsule(data: PostCapsuleResDto) {
+  const response = await client.post<Wrapper<PostCapsuleResponseDto>>(
+    `/opens/capsule`,
+    data,
+  );
+  return response.data;
+}
 
 interface ViewImminentCapsuleResDto {
   categoryName: string;
@@ -35,15 +65,17 @@ interface FindPostByCategoryResDto {
 }
 
 interface FindPostByCategoryReqDto {
+  year: number; // TODO
   categoryIdx: number;
   scrollSize: number;
 }
 
 export async function searchCapsulesCategory({
+  year,
   categoryIdx,
   scrollSize,
 }: FindPostByCategoryReqDto) {
-  const params: FindPostByCategoryReqDto = {categoryIdx, scrollSize};
+  const params: FindPostByCategoryReqDto = {year, categoryIdx, scrollSize};
   const response = await client.get<FindPostByCategoryResDto>(
     `/capsules/category/search`,
     {params},
@@ -123,6 +155,7 @@ export async function postCapuslesLike({...data}: ToggleCapsuleLikeReqDto) {
   const response = await client.post(`/capsules/capsule`, data);
   return response.data;
 }
+
 
 interface PatchNicknameReqDto {
   memberIdx: number;
@@ -236,6 +269,28 @@ export async function getCapsulesCategorySearchText({
   const params: FindPostByTextResDto = {postTitleList, nextCursor};
   const response = await client.get<FindPostByTextResDto>(
     `/capsules/category/search/text`,
+
+interface GetOpenAiReqDto {
+  postText: string;
+}
+
+interface GetOpenAiParamDto {
+  keyword: string; // 미래의 나에게
+  format: string; // 편지
+}
+
+interface BaseResponseGetOpenAiReqDto {
+  isSuccess: boolean;
+  code: number;
+  message: string;
+  result: GetOpenAiReqDto;
+}
+
+export async function getOpenAi({keyword, format}: GetOpenAiParamDto) {
+  const params: GetOpenAiParamDto = {keyword, format};
+  console.log(keyword, format);
+  const response = await axios.get<BaseResponseGetOpenAiReqDto>(
+    'https://hack.ljhhosting.com/opens/result',
     {
       params,
     },
