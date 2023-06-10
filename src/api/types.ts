@@ -1,16 +1,13 @@
 // import {AxiosError} from 'axios';
 
-// export interface User {
-//   id: number;
-//   username: string;
-//   email: string;
-//   provider: string;
-//   confirmed: boolean;
-//   blocked: null | boolean;
-//   role: number;
-//   created_at: string;
-//   updated_at: string;
-// }
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+  birth: Date;
+  created_at: string;
+  updated_at: string;
+}
 
 // export interface Article {
 //   id: number;
@@ -31,10 +28,10 @@
 //   updated_at: string;
 // }
 
-// export interface AuthResult {
-//   jwt: string;
-//   user: User;
-// }
+export interface AuthResult {
+  jwt: string;
+  user: User;
+}
 
 // type AuthErrorData = {
 //   messages: {
