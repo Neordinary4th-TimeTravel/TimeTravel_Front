@@ -1,16 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {styled} from 'styled-components/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {Modal} from 'react-native';
 
-interface HomeDateProps {
-  lockDate: string;
-  createDate: string;
+interface UnLockCapsuleProps {
+  lockDate: Date;
+  createDate: Date;
 }
 
-function HomeDate({lockDate, createDate}: HomeDateProps) {
+const UnLockCapsule = ({lockDate, createDate}: UnLockCapsuleProps) => {
   const [visible, setVisible] = useState<boolean>(false);
-  const [remainingTime, setRemainingTime] = useState<string>('');
 
   // 2023-05-12 => 2023.05.12 (금) 작성 으로 변경
   const createDateObj = new Date(createDate);
@@ -21,30 +20,6 @@ function HomeDate({lockDate, createDate}: HomeDateProps) {
       day: '2-digit',
       weekday: 'short',
     }) + ' 작성';
-
-  // 남은 시간 계산
-  // remaingTime이 변할때마다 리렌더링 (1분단위)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const currentDate = new Date();
-      const lockDateObj = new Date(lockDate);
-      const timeDiff = lockDateObj.getTime() - currentDate.getTime();
-
-      if (timeDiff >= 0) {
-        const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor(
-          (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-        );
-        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-
-        setRemainingTime(`${days}일, ${hours}시간 ${minutes}분 뒤 오픈`);
-      } else {
-        setRemainingTime('');
-      }
-    }, 60000);
-
-    return () => clearInterval(interval);
-  }, [lockDate]);
 
   const showDialog = () => {
     const lockDateTime = new Date(lockDate);
@@ -61,24 +36,13 @@ function HomeDate({lockDate, createDate}: HomeDateProps) {
   return (
     <>
       <StyledView>
-        <DateTitle>곧 열리는 타임캡슐 시간</DateTitle>
-        {remainingTime ? (
-          <LockView onPress={showDialog}>
-            <MaterialIcons name="lock-outline" color="black" size={24} />
-            <DateView>
-              <LockDate>{remainingTime.toString()}</LockDate>
-              <CreateDate>{formattedCreateDate}</CreateDate>
-            </DateView>
-          </LockView>
-        ) : (
-          <LockOpenView onPress={showDialog}>
-            <MaterialIcons name="lock-open" color="black" size={24} />
-            <DateView>
-              <LockDate>3개월 뒤에 나에게 쓰는 편지. 나...</LockDate>
-              <CreateDate>{formattedCreateDate}</CreateDate>
-            </DateView>
-          </LockOpenView>
-        )}
+        <LockOpenView onPress={showDialog}>
+          <MaterialIcons name="lock-open" color="black" size={24} />
+          <DateView>
+            <LockDate>3개월 뒤에 나에게 쓰는 편지. 나...</LockDate>
+            <CreateDate>{formattedCreateDate}</CreateDate>
+          </DateView>
+        </LockOpenView>
       </StyledView>
       <Modal
         visible={visible}
@@ -115,27 +79,18 @@ function HomeDate({lockDate, createDate}: HomeDateProps) {
       </Modal>
     </>
   );
-}
+};
 
-export default HomeDate;
+export default UnLockCapsule;
 
 const StyledView = styled.View`
-  flex: 1;
   padding-left: 24;
   padding-right: 24;
-  margin-top: 23;
+  margin-top: 9;
 `;
 
-const DateTitle = styled.Text`
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16;
-  line-height: 19;
-  color: #000000;
-`;
-
-const LockView = styled.TouchableOpacity`
-  height: 65;
+const LockOpenView = styled.TouchableOpacity`
+  height: 87;
   flex-direction: row;
   align-items: center;
   border-radius: 50px;
@@ -145,21 +100,7 @@ const LockView = styled.TouchableOpacity`
   padding-bottom: 12;
   margin-top: 11;
   background: #ffd494;
-  box-shadow: 0px 0px 15px #ffd494;
-`;
-
-const LockOpenView = styled.TouchableOpacity`
-  height: 65;
-  flex-direction: row;
-  align-items: center;
-  border-radius: 50px;
-  padding-left: 20;
-  padding-top: 13;
-  padding-right: 46;
-  padding-bottom: 12;
-  margin-top: 11;
-  background: #ff8c83;
-  box-shadow: 0px 0px 15px #ff8c83;
+  border-radius: 30px;
 `;
 
 const DateView = styled.View`
