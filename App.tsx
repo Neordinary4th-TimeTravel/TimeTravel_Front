@@ -6,15 +6,19 @@
  */
 
 import React from 'react';
-import {SafeAreaView} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import RootStack from 'screens/RootStack';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
-import BoardScreen from 'screens/BoardScreen';
+const queryClient = new QueryClient();
 
-function App(): JSX.Element {
+function App() {
   return (
-    <SafeAreaView>
-      <BoardScreen />
-    </SafeAreaView>
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer>
+        <RootStack />
+      </NavigationContainer>
+    </QueryClientProvider>
   );
 }
 
