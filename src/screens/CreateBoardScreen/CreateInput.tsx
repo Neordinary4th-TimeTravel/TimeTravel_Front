@@ -1,5 +1,5 @@
 import React from 'react';
-import {Input} from '@rneui/themed';
+import {Input} from '@rneui/base';
 
 interface CreateInputProps {
   title: string;

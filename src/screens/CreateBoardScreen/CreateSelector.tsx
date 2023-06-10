@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {BottomSheet, Button, ListItem} from '@rneui/themed';
+import {BottomSheet, Button, ListItem} from '@rneui/base';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Text} from 'react-native';
 
@@ -9,7 +9,7 @@ interface CreateSelectorProps {
 }
 
 function CreateSelector({title, list}: CreateSelectorProps) {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
   const [item, setItem] = useState('');
 
   const itemList = list.map(item => {

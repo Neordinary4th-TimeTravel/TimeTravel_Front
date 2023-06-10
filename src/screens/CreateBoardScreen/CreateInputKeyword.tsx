@@ -1,5 +1,5 @@
 import React from 'react';
-import {Input} from '@rneui/themed';
+import {Input} from '@rneui/base';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 interface CreateInputKeywordProps {

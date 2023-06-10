@@ -4,6 +4,7 @@ import {Text} from 'react-native';
 import CreateInput from './CreateInput';
 import CreateInputKeyword from './CreateInputKeyword';
 import CreateMultipleInput from './CreateMultipleInput';
+import CreateRadio from './CreateRadio';
 
 export default function () {
   return (
@@ -26,6 +27,11 @@ export default function () {
       <CreateInput title="요즘 듣고 있는 노래를 입력해주세요!" />
       <Text>친구 태그하기</Text>
       <CreateInput title="요즘 듣고 있는 노래를 입력해주세요!" />
+
+      <Text>공개 여부 *</Text>
+      <CreateRadio list={['공개', '비공개']} />
+      <Text>캡슐 해제 시간 *</Text>
+      {/* TODO */}
     </>
   );
 }
