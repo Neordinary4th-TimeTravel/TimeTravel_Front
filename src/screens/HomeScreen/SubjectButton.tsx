@@ -11,7 +11,7 @@ interface SubjectButtonProps {
 function SubjectButton({key, iconName, subjectName}: SubjectButtonProps) {
   return (
     <StyledView key={key}>
-      <Icon name={iconName} color="black" size={24} />
+      <MaterialIcons name={iconName} color="black" size={24} />
       <SubjectName>{subjectName}</SubjectName>
     </StyledView>
   );
@@ -20,19 +20,14 @@ function SubjectButton({key, iconName, subjectName}: SubjectButtonProps) {
 export default SubjectButton;
 
 const StyledView = styled.View`
-  width: 57;
-  height: 57;
-  background-color: #ececec;
+  width: 62;
+  height: 62;
+  background-color: white;
   overflow: hidden;
   justify-content: center;
   align-items: center;
   border-radius: 7px;
   margin-right: 13;
-`;
-
-const Icon = styled(MaterialIcons)`
-  width: 22;
-  height: 22;
 `;
 
 const SubjectName = styled.Text`

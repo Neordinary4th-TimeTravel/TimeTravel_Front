@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {styled} from 'styled-components/native';
-import {BottomSheet, Button, ListItem} from '@rneui/base';
+import {BottomSheet, ListItem} from '@rneui/base';
 
 interface HomeHeaderProps {
   userName: string;
@@ -33,33 +33,17 @@ function HomeHeader({userName, defaultYear, list}: HomeHeaderProps) {
           </TitleText>
         </TextView>
         <IconView>
-          <Icon name="search" color="black" size={20} />
-          <Icon name="menu" color="black" size={24} />
+          <Icon name="search" color="white" size={20} />
+          <Icon name="menu" color="white" size={24} />
         </IconView>
       </StyledView>
       <YearView onPress={() => setIsVisible(true)}>
-        <Button
-          title={
-            item
-              ? `${item}년대 그때로 돌아가기`
-              : `${defaultYear}년대 그때로 돌아가기`
-          }
-          buttonStyle={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            paddingHorizontal: 16,
-            backgroundColor: 'transparent',
-          }}
-          titleStyle={{
-            fontStyle: 'normal',
-            fontWeight: '500',
-            fontSize: 16,
-            color: '#4A4A4A',
-            lineHeight: 19,
-            textAlign: 'left',
-          }}
-        />
+        <YeaeTitleView>
+          <YearTitleBold>
+            {item ? `${item}년대` : `${defaultYear}년대`}
+          </YearTitleBold>
+          <YearTitle>그때로</YearTitle>
+        </YeaeTitleView>
         <MaterialIcons name="arrow-drop-down" color="black" size={24} />
         <BottomSheet modalProps={{}} isVisible={isVisible}>
           {itemList.map((item, index) => (
@@ -90,8 +74,8 @@ const StyledView = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  background-color: #e7e7e7;
-  border-radius: 0px 0px 30px 30px;
+  background-color: #282828;
+  border-radius: 0px 0px 20px 0px;
   position: relative;
   padding-top: 31;
 `;
@@ -102,7 +86,7 @@ const TextView = styled.View`
 `;
 
 const TitleText = styled.Text`
-  color: '#000000';
+  color: #ffffff;
   font-weight: 300;
   font-size: 22;
   line-height: 27;
@@ -131,8 +115,31 @@ const YearView = styled.TouchableOpacity`
   top: 98;
   width: 87%;
   height: 53;
-  background-color: #ffffff;
+  background-color: #ffd494;
   border-radius: 30px;
   justify-content: space-between;
   padding-right: 10;
+`;
+
+const YeaeTitleView = styled.View`
+  flex-direction: row;
+  align-items: flex-end;
+`;
+
+const YearTitleBold = styled.Text`
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18;
+  line-height: 22;
+  color: #000000;
+  padding-left: 22;
+`;
+
+const YearTitle = styled.Text`
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16;
+  line-height: 19;
+  color: #2f2f2f;
+  margin-left: 4;
 `;
