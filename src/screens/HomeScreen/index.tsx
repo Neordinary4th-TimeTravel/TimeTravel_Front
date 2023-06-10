@@ -6,15 +6,13 @@ import HomeFavortie from './HomeFavorite';
 import HomeHeader from './HomeHeader';
 import HomeHot from './HomeHot';
 import HomeSubjectFilter from './HomeSubjectFilter';
+import {yearDummy} from 'constants/dummey';
 
 export default function () {
   return (
     <StyledView>
       <ScrollView>
-        <HomeHeader
-          userName="soft"
-          list={['1980', '1990', '2000', '2010', '2020']}
-        />
+        <HomeHeader userName="soft" list={yearDummy} />
         <HomeSubjectFilter
           subjects={[
             {iconName: 'mail-outline', subjectName: '편지'},

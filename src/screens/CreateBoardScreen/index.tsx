@@ -17,6 +17,7 @@ import {
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {MainTabNavigationProp} from 'screens/types';
 import {useNavigation} from '@react-navigation/native';
+import {subjectDummy, yearDummy} from 'constants/dummey';
 
 export default function () {
   const {capsule, updateCapsule, clear} = useCapsuleBuilderStore();
@@ -65,14 +66,14 @@ export default function () {
         <Title title="년도 선택 *" />
         <CreateSelector
           title="어떤 년도와 관련된 캡슐인가요?"
-          list={['1980', '1990', '2000']}
+          list={yearDummy}
           type="YEAR"
         />
 
         <Title title="주제 선택 *" />
         <CreateSelector
           title="어떤 내용으로 만드시나요?"
-          list={['음악', '패션', '패션', '패션', '패션']}
+          list={subjectDummy}
           type="SUBJECT"
         />
 
