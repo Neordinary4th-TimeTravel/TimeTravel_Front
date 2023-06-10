@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {styled} from 'styled-components/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {Modal} from 'react-native';
+import {getCloseCapsules} from 'api/capsules';
 
 interface HomeDateProps {
   lockDate: string;
@@ -11,6 +12,12 @@ interface HomeDateProps {
 function HomeDate({lockDate, createDate}: HomeDateProps) {
   const [visible, setVisible] = useState<boolean>(false);
   const [remainingTime, setRemainingTime] = useState<string>('');
+
+  useEffect(() => {
+    getCloseCapsules(1).then(data => {
+      console.log(data); // FIXME
+    });
+  }, []);
 
   // 2023-05-12 => 2023.05.12 (금) 작성 으로 변경
   const createDateObj = new Date(createDate);

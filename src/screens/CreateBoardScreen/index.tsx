@@ -18,6 +18,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {MainTabNavigationProp} from 'screens/types';
 import {useNavigation} from '@react-navigation/native';
 import {subjectDummy, yearDummy} from 'constants/dummey';
+import {getOpenAi, postCapsule} from 'api/capsules';
 
 export default function () {
   const {capsule, updateCapsule, clear} = useCapsuleBuilderStore();
@@ -27,28 +28,43 @@ export default function () {
   const {
     year,
     subject,
-    content,
     openTime,
     title,
+    content,
     keywords,
     contentType,
     song,
     friends,
+    isPrivate,
   } = capsule;
 
-  // const [capsuleTitle, setCapsuleTitle] = useState<string | null>(null);
-  const [contents, setContents] = useState<string | null>(null);
-
   const [isPossible, setIsPossible] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const onPressGpt = () => {
-    Alert.alert('hello');
+  const onPressGpt = async () => {
+    if (!!keywords && !!contentType) {
+      setIsLoading(true);
+      await getOpenAi({keyword: keywords, format: contentType}).then(res => {
+        updateCapsule({content: res.result.postText});
+      });
+      setIsLoading(false);
+    }
   };
 
   const onPressFinal = () => {
     if (isPossible) {
       Alert.alert('success');
       console.log(capsule);
+      postCapsule({
+        categoryIdx: subject!,
+        memberIdx: 1,
+        postTitle: title!,
+        postYear: Number(year),
+        postSong: song ?? '',
+        postRelease: openTime!.toISOString(),
+        postPublic: !isPrivate,
+      });
+
       clear();
       navigation.navigate('Home');
     } else {
@@ -120,7 +136,7 @@ export default function () {
             />
           </View>
           <MaterialIcons
-            name="send"
+            name={isLoading ? 'refresh' : 'send'}
             color="black"
             size={24}
             onPress={onPressGpt}
@@ -133,9 +149,8 @@ export default function () {
           placeholder="본문: "
           multiline
           numberOfLines={5}
-          value={contents ?? ''}
+          value={content ?? ''}
           onChangeText={v => {
-            setContents(v);
             updateCapsule({
               content: v,
             });

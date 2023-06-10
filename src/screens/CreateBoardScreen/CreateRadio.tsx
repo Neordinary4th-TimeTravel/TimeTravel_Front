@@ -21,7 +21,7 @@ function CreateRadio({list}: CreateRadioProps) {
   const onPress = (index: number) => {
     setIndex(index);
     updateCapsule({
-      isPrivate: !!index,
+      isPrivate: !index,
     });
   };
 
