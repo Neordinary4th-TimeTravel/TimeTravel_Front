@@ -1,10 +1,10 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {styled} from 'styled-components/native';
 
 export default function ArticlesScreen() {
-  return (
-    <View>
-      <Text>Arti흠clessss</Text>
-    </View>
-  );
+  return <StyledView>{/* TODO */}</StyledView>;
 }
+
+const StyledView = styled.View`
+  flex: 1;
+`;
